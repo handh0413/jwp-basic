@@ -33,6 +33,7 @@ public class UserDaoTest {
         userDao.update(expected);
         actual = userDao.findByUserId(expected.getUserId());
         assertEquals(expected, actual);
+        assertEquals(expected.getName(), "name2");
     }
 
     @Test
