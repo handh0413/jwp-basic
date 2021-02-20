@@ -2,9 +2,13 @@ package next.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import next.model.User;
 
 public class UserSessionUtils {
+	private static final Logger logger = LoggerFactory.getLogger(UserSessionUtils.class);
     public static final String USER_SESSION_KEY = "user";
 
     public static User getUserFromSession(HttpSession session) {
@@ -30,7 +34,7 @@ public class UserSessionUtils {
         if (user == null) {
             return false;
         }
-
+        
         return user.isSameUser(getUserFromSession(session));
     }
 }
