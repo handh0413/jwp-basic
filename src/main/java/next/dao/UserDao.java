@@ -9,19 +9,19 @@ import core.jdbc.RowMapper;
 import next.model.User;
 
 public class UserDao {
-    public void insert(User user) throws SQLException {
+    public void insert(User user) {
     	JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
     }
 
-    public void update(User user) throws SQLException {
+    public void update(User user) {
     	JdbcTemplate jdbcTemplate = new JdbcTemplate();
     	String sql = "UPDATE USERS SET name = ?, password = ?, email = ? WHERE userId = ?";
     	jdbcTemplate.update(sql, user.getName(), user.getPassword(), user.getEmail(), user.getUserId());
     }
 
-	public List<User> findAll() throws SQLException {
+	public List<User> findAll() {
 		RowMapper<User> rm = new RowMapper<User>() {
 			@Override
 			public User mapRow(ResultSet rs) throws SQLException {
@@ -38,7 +38,7 @@ public class UserDao {
 		return (List<User>)template.query(sql, rm);
     }
 
-    public User findByUserId(String userId) throws SQLException {
+    public User findByUserId(String userId) {
 		RowMapper<User> rm = new RowMapper<User>() {
 			@Override
 			public User mapRow(ResultSet rs) throws SQLException {
