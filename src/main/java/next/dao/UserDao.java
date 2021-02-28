@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import core.jdbc.JdbcTemplate;
-import core.jdbc.SelectJdbcTemplate;
 import next.model.User;
 
 public class UserDao {
@@ -18,6 +17,11 @@ public class UserDao {
 				pstmt.setString(2, user.getPassword());
 				pstmt.setString(3, user.getName());
 				pstmt.setString(4, user.getEmail());
+			}
+
+			@Override
+			public Object mapRow(ResultSet rs) throws SQLException {
+				return null;
 			}
         };
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
@@ -33,6 +37,11 @@ public class UserDao {
 				pstmt.setString(3, user.getEmail());
 				pstmt.setString(4, user.getUserId());
 			}
+
+			@Override
+			public Object mapRow(ResultSet rs) throws SQLException {
+				return null;
+			}
     	};
     	String sql = "UPDATE USERS SET name = ?, password = ?, email = ? WHERE userId = ?";
     	jdbcTemplate.update(sql);
@@ -40,12 +49,7 @@ public class UserDao {
 
     @SuppressWarnings("unchecked")
 	public List<User> findAll() throws SQLException {
-    	SelectJdbcTemplate template = new SelectJdbcTemplate() {
-			@Override
-			public void setParameters(PreparedStatement pstmt) throws SQLException {
-				
-			}
-			
+    	JdbcTemplate template = new JdbcTemplate() {
 			@Override
 			public User mapRow(ResultSet rs) throws SQLException {
 				return new User(
@@ -54,6 +58,11 @@ public class UserDao {
 						rs.getString("name"),
 				        rs.getString("email"));
 			}
+
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				
+			}
 		};
 		
 		String sql = "SELECT * FROM USERS";
@@ -61,9 +70,9 @@ public class UserDao {
     }
 
     public User findByUserId(String userId) throws SQLException {
-    	SelectJdbcTemplate template = new SelectJdbcTemplate() {
+    	JdbcTemplate template = new JdbcTemplate() {
 			@Override
-			public void setParameters(PreparedStatement pstmt) throws SQLException {
+			public void setValues(PreparedStatement pstmt) throws SQLException {
 				pstmt.setString(1, userId);
 			}
 			
