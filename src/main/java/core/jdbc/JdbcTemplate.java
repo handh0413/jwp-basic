@@ -27,8 +27,13 @@ public class JdbcTemplate {
 			}
 		}
 	}
+	
+	public void update(String sql, Object... objects) throws SQLException {
+		PreparedStatementSetter pss = createPreparedStatementSetter(objects);
+		update(sql, pss);
+	}
 
-	public <T> List<T> query(String sql, PreparedStatementSetter pss, RowMapper<T> rm) throws SQLException {
+	public <T> List<T> query(String sql, RowMapper<T> rm, PreparedStatementSetter pss) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -57,12 +62,33 @@ public class JdbcTemplate {
 			}
 		}
 	}
+	
+	public <T> List<T> query(String sql, RowMapper<T> rm, Object...objects) throws SQLException {
+		PreparedStatementSetter pss = createPreparedStatementSetter(objects);
+		return query(sql, rm, pss);
+	}
 
-	public <T> T queryForObject(String sql, PreparedStatementSetter pss, RowMapper<T> rm) throws SQLException {
-		List<T> result = query(sql, pss, rm);
+	public <T> T queryForObject(String sql, RowMapper<T> rm, PreparedStatementSetter pss) throws SQLException {
+		List<T> result = query(sql, rm, pss);
 		if (result.isEmpty()) {
 			return null;
 		}
 		return result.get(0);
+	}
+	
+	public <T> T queryForObject(String sql, RowMapper<T> rm, Object...objects) throws SQLException {
+		PreparedStatementSetter pss = createPreparedStatementSetter(objects);
+		return queryForObject(sql, rm, pss);
+	}
+	
+	private PreparedStatementSetter createPreparedStatementSetter(Object... objects) {
+		return new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				for (int i = 0; i < objects.length; i++) {
+					pstmt.setObject(i + 1, objects[i]);
+				}
+			}
+		};
 	}
 }
