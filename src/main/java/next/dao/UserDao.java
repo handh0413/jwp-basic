@@ -1,11 +1,9 @@
 package next.dao;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import core.jdbc.JdbcTemplate;
-import core.jdbc.RowMapper;
 import next.model.User;
 
 public class UserDao {
@@ -22,36 +20,26 @@ public class UserDao {
     }
 
 	public List<User> findAll() {
-		RowMapper<User> rm = new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs) throws SQLException {
-				return new User(
-						rs.getString("userId"), 
-						rs.getString("password"), 
-						rs.getString("name"),
-				        rs.getString("email"));
-			}
-		};
-    	
     	JdbcTemplate template = new JdbcTemplate();
 		String sql = "SELECT * FROM USERS";
-		return (List<User>)template.query(sql, rm);
+		return (List<User>)template.query(sql, (ResultSet rs) -> {
+			return new User(
+					rs.getString("userId"), 
+					rs.getString("password"), 
+					rs.getString("name"),
+			        rs.getString("email"));
+		});
     }
 
     public User findByUserId(String userId) {
-		RowMapper<User> rm = new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs) throws SQLException {
-				return new User(
-						rs.getString("userId"), 
-						rs.getString("password"), 
-						rs.getString("name"),
-				        rs.getString("email"));
-			}
-		};
-    	
     	JdbcTemplate template = new JdbcTemplate();
 		String sql = "SELECT userId, password, name, email FROM USERS WHERE userid=?";
-		return (User)template.queryForObject(sql, rm, userId);
+		return (User)template.queryForObject(sql, (ResultSet rs) -> {
+			return new User(
+					rs.getString("userId"), 
+					rs.getString("password"), 
+					rs.getString("name"),
+			        rs.getString("email"));
+		}, userId);
     }
 }
