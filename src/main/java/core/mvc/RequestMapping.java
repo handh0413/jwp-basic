@@ -13,7 +13,9 @@ import next.controller.LoginController;
 import next.controller.LogoutController;
 import next.controller.ProfileController;
 import next.controller.ShowQuestionController;
+import next.controller.UpdateFormQuestionController;
 import next.controller.UpdateFormUserController;
+import next.controller.UpdateQuestionController;
 import next.controller.UpdateUserController;
 
 public class RequestMapping {
@@ -34,6 +36,8 @@ public class RequestMapping {
         
         /////////////////////////////////////////////////////////////////////////////
         mappings.put("/qna/show", new ShowQuestionController());
+        mappings.put("/qna/updateForm", new UpdateFormQuestionController());
+        mappings.put("/qna/update", new UpdateQuestionController());
 
         logger.info("Initialized Request Mapping!");
     }

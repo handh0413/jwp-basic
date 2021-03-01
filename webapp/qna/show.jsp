@@ -35,7 +35,7 @@
                   <div class="article-util">
                       <ul class="article-util-list">
                           <li>
-                              <a class="link-modify-article" href="/questions/423/form">수정</a>
+                              <a class="link-modify-article" href="/qna/updateForm?questionId=${question.questionId}">수정</a>
                           </li>
                           <li>
                               <form class="form-delete" action="/questions/423" method="POST">
@@ -44,7 +44,7 @@
                               </form>
                           </li>
                           <li>
-                              <a class="link-modify-article" href="/index.html">목록</a>
+                              <a class="link-modify-article" href="/">목록</a>
                           </li>
                       </ul>
                   </div>
