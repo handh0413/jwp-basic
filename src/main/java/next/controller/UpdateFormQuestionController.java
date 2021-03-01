@@ -25,7 +25,7 @@ public class UpdateFormQuestionController implements Controller {
         Question question = questionDao.findByQuestionId(questionId);
         
         req.setAttribute("question", question);
-        return "/qna/form.jsp";
+        return "/qna/updateForm.jsp";
 	}
 
 }
