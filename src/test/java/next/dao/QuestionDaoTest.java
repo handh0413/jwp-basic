@@ -1,6 +1,7 @@
 package next.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -12,7 +13,6 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import core.jdbc.ConnectionManager;
 import next.model.Question;
-import next.model.User;
 
 public class QuestionDaoTest {
     @Before
@@ -43,6 +43,10 @@ public class QuestionDaoTest {
     	
     	assertEquals(expected.getCountOfAnswer(), 1);
     	assertEquals(expected.getTitle(), "변경한 제목");
+    	
+    	questionDao.delete(1);
+    	expected = questionDao.findByQuestionId(1);
+    	assertNull(expected);
     }
 
     @Test
