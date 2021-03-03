@@ -19,7 +19,12 @@ public class ShowQuestionController implements Controller  {
 	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		int questionId = Integer.parseInt(req.getParameter("questionId"));
+		String questionStrId = req.getParameter("questionId");
+		if (questionStrId == null) {
+			questionStrId = (String) req.getAttribute("questionId");
+		}
+		int questionId = Integer.parseInt(questionStrId);
+		
 		QuestionDao questionDao = new QuestionDao();
         Question question = questionDao.findByQuestionId(questionId);
         log.debug("question : {}", question);
