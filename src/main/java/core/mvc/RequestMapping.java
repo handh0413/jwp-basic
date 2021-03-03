@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import next.controller.CreateAnswerController;
 import next.controller.CreateQuestionController;
 import next.controller.CreateUserController;
 import next.controller.DeleteQuestionController;
@@ -43,6 +44,9 @@ public class RequestMapping {
         mappings.put("/qna/delete", new DeleteQuestionController());
         mappings.put("/qna/createForm", new ForwardController("/qna/form.jsp"));
         mappings.put("/qna/create", new CreateQuestionController());
+        
+        /////////////////////////////////////////////////////////////////////////////
+        mappings.put("/answer/create", new CreateAnswerController());
 
         logger.info("Initialized Request Mapping!");
     }
