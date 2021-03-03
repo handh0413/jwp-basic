@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import next.controller.CreateAnswerController;
 import next.controller.CreateQuestionController;
 import next.controller.CreateUserController;
+import next.controller.DeleteAnswerController;
 import next.controller.DeleteQuestionController;
 import next.controller.HomeController;
 import next.controller.ListUserController;
@@ -47,6 +48,7 @@ public class RequestMapping {
         
         /////////////////////////////////////////////////////////////////////////////
         mappings.put("/answer/create", new CreateAnswerController());
+        mappings.put("/answer/delete", new DeleteAnswerController());
 
         logger.info("Initialized Request Mapping!");
     }

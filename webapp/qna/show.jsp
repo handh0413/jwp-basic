@@ -79,8 +79,10 @@
                                           <a class="link-modify-article" href="/questions/413/answers/1405/form">수정</a>
                                       </li>
                                       <li>
-                                          <form class="form-delete" action="/questions/413/answers/1405" method="POST">
+                                          <form class="form-delete" action="/answer/delete" method="POST">
                                               <input type="hidden" name="_method" value="DELETE">
+                                              <input type="hidden" name="answerId" value="${answer.answerId}"/>
+                                              <input type="hidden" name="answerQuestionId" value="${question.questionId}"/>
                                               <button type="submit" class="link-delete-article">삭제</button>
                                           </form>
                                       </li>
