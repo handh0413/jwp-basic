@@ -55,9 +55,40 @@
 
               <div class="qna-comment">
                   <div class="qna-comment-slipp">
-                      <p class="qna-comment-count"><strong>2</strong>개의 의견</p>
+                      <p class="qna-comment-count"><strong>${answers.size()}</strong>개의 의견</p>
                       <div class="qna-comment-slipp-articles">
-
+						<c:forEach items="${answers}" var="answer" varStatus="status">
+							<article class="article" id="answer-1405">
+                              <div class="article-header">
+                                  <div class="article-header-thumb">
+                                      <img src="https://graph.facebook.com/v2.3/1324855987/picture" class="article-author-thumb" alt="">
+                                  </div>
+                                  <div class="article-header-text">
+                                      <a href="/users/1/자바지기" class="article-author-name">${answer.writer}</a>
+                                      <a href="#answer-1434" class="article-header-time" title="퍼머링크">
+                                          ${answer.createdDate}
+                                      </a>
+                                  </div>
+                              </div>
+                              <div class="article-doc comment-doc">
+                                  <p>${answer.contents}</p>
+                              </div>
+                              <div class="article-util">
+                                  <ul class="article-util-list">
+                                      <li>
+                                          <a class="link-modify-article" href="/questions/413/answers/1405/form">수정</a>
+                                      </li>
+                                      <li>
+                                          <form class="form-delete" action="/questions/413/answers/1405" method="POST">
+                                              <input type="hidden" name="_method" value="DELETE">
+                                              <button type="submit" class="link-delete-article">삭제</button>
+                                          </form>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </article>
+						</c:forEach>
+						<!-- 
                           <article class="article" id="answer-1405">
                               <div class="article-header">
                                   <div class="article-header-thumb">
@@ -116,11 +147,13 @@
                                   </ul>
                               </div>
                           </article>
-                          <form class="submit-write">
+                         -->
+                          <form class="submit-write" method="post" action="/answer/create">
                               <div class="form-group" style="padding:14px;">
-                                  <textarea class="form-control" placeholder="Update your status"></textarea>
+                                  <textarea class="form-control" name="answerContents" placeholder="Update your status"></textarea>
                               </div>
-                              <button class="btn btn-success pull-right" type="button">Post</button>
+                              <input type="hidden" name="answerQuestionId" value="${question.questionId}"/>
+                              <button class="btn btn-success pull-right" type="submit">Post</button>
                               <div class="clearfix" />
                           </form>
                       </div>
