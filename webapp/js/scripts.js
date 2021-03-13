@@ -31,14 +31,12 @@ function onErrorAddAnswer(status) {
 
 function onSuccessAddAnswer(json, status) {
 	var answerTemplate = $("#answerTemplate").html();
+	console.log(json.savedAnswer);
 	var template = answerTemplate.format(
-			json.writer, 
-			new Date(json.createdDate)
-				.toISOString()
-				.replace(/T/, ' ')
-				.replace(/\..+/, ''),
-			json.contents,
-			json.answerId);
+			json.savedAnswer.writer, 
+			json.savedAnswer.createdDate,
+			json.savedAnswer.contents,
+			json.savedAnswer.answerId);
 	$(".qna-comment-slipp-articles").prepend(template);
 }
 
