@@ -1,5 +1,7 @@
 package core.ref;
 
+import java.lang.reflect.Method;
+
 import org.junit.Test;
 
 public class Junit4TestRunner {
@@ -7,5 +9,10 @@ public class Junit4TestRunner {
     public void run() throws Exception {
         Class<Junit4Test> clazz = Junit4Test.class;
 
+        for (Method method : clazz.getDeclaredMethods()) {
+        	if(method.isAnnotationPresent(MyTest.class)) {
+        		method.invoke(clazz.newInstance());
+        	}
+        }
     }
 }
