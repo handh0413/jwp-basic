@@ -50,9 +50,25 @@ public class ReflectionTest {
 	}
 
 	@Test
-	public void privateFieldAccess() {
+	public void privateFieldAccess() throws Exception {
 		Class<Student> clazz = Student.class;
 		logger.debug(clazz.getName());
+		
+		Student stu = new Student();
+		String name = "동희";
+		int age = 32;
+		
+		for (Field field : clazz.getDeclaredFields()) {
+			logger.debug("getType : {}", field.getType());
+			field.setAccessible(true);
+			if (field.getType().equals(String.class)) {
+				field.set(stu, name);
+			} else if (field.getType().equals(int.class)) {
+				field.setInt(stu, age);
+			}
+		}
+		
+		logger.debug(stu.toString());
 	}
 
 }
